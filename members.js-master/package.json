@@ -1,0 +1,65 @@
+{
+  "name": "@tryghost/members-js",
+  "version": "0.6.3",
+  "license": "MIT",
+  "repository": "git@github.com:TryGhost/membersjs.git",
+  "author": "Ghost Foundation",
+  "unpkg": "umd/members.min.js",
+  "files": [
+    "umd/",
+    "LICENSE",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "dependencies": {
+    "@testing-library/jest-dom": "5.10.1",
+    "@testing-library/react": "10.2.1",
+    "@testing-library/user-event": "11.4.2",
+    "prop-types": "15.7.2",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "react-scripts": "3.4.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "npm run build:combined && npm run build:bundle",
+    "build:combined": "node ./scripts/build-combined.js",
+    "build:bundle": "webpack --config webpack.config.js",
+    "test": "react-scripts test --env=jsdom-fourteen",
+    "eject": "react-scripts eject",
+    "lint": "eslint src --ext .js --cache",
+    "preship": "yarn lint",
+    "ship": "STATUS=$(git status --porcelain); echo $STATUS; if [ -z \"$STATUS\" ]; then yarn publish && git push ${GHOST_UPSTREAM:-upstream} master --follow-tags; fi",
+    "posttest": "yarn lint",
+    "prepublishOnly": "yarn build"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "plugin:ghost/browser"
+    ],
+    "plugins": [
+      "ghost"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "eslint-plugin-ghost": "1.5.0",
+    "rewire": "5.0.0",
+    "webpack-cli": "3.3.11"
+  }
+}
